@@ -6,7 +6,7 @@
 //   de AdSense (window.TS_ADS.client en index.html); al configurarlo, pasa a anuncios de Google.
 (function () {
   var PROMOS = [
-  { nom: "SU MARCA AQUÍ", txt: "Espacio publicitario disponible · jorgehc2490@gmail.com · WhatsApp +1 (305) 796-3462", url: "", ico: "★", col: "#b8860b" },
+  { nom: "SU MARCA AQUÍ", txt: "Espacio publicitario disponible · Escríbenos: labmet22@gmail.com", url: "", ico: "★", col: "#b8860b" },
   { nom: "LABMET · YouTube", txt: "@labmet · 94,9 mil suscriptores — huracanes y pronóstico del tiempo", url: "https://www.youtube.com/@labmet", ico: "▶", col: "#c4302b" },
   { nom: "Meteorólogo Jorge F Hernández · TikTok", txt: "@jorgefelixmeteorologo · 233,7 mil seguidores", url: "https://www.tiktok.com/@jorgefelixmeteorologo", ico: "♪", col: "#111111" },
   { nom: "Jorge Felix Hernández · Instagram", txt: "@jorgefelix_met · 126 mil seguidores", url: "https://www.instagram.com/jorgefelix_met", ico: "◎", col: "#c13584" },

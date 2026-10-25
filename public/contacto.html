@@ -6,6 +6,16 @@
 <title>Acerca de / Contacto · TiempoSalud</title>
 <meta name="description" content="Acerca de TiempoSalud y contacto: pronóstico biometeorológico por el meteorólogo Jorge Félix Hernández (LABMET).">
 <link rel="stylesheet" href="styles.css">
+<style>
+  .contactForm{max-width:560px;margin:14px 0 6px}
+  .contactForm label{display:block;margin:12px 0 4px;font-weight:600;font-size:.95rem}
+  .contactForm input[type="text"],.contactForm input[type="email"],.contactForm textarea{
+    width:100%;box-sizing:border-box;margin-top:4px;padding:10px 12px;border-radius:10px;
+    border:1px solid var(--card-border);background:var(--card);color:var(--text);
+    font:inherit;font-weight:400}
+  .contactForm button{margin-top:16px;background:var(--teal);color:#062a26;border:0;
+    border-radius:999px;padding:11px 22px;font-weight:700;font-size:.95rem;cursor:pointer}
+</style>
 </head>
 <body>
 <main class="legal-page">
@@ -15,11 +25,25 @@
   <p>Los datos meteorológicos provienen de modelos de pronóstico abiertos (Open-Meteo); los umbrales de salud se basan en literatura médica revisada y tienen fines informativos: no sustituyen el consejo de un profesional de la salud.</p>
 
   <h2>Contacto</h2>
-  <p>Correo: <a href="mailto:jorgehc2490@gmail.com">jorgehc2490@gmail.com</a><br>
-  Redes: YouTube (<a href="https://www.youtube.com/@labmet" target="_blank" rel="noopener">LABMET</a>) · TikTok · Facebook · Instagram</p>
+  <p>¿Tienes una pregunta, una sugerencia o detectaste un error? Escríbenos con este formulario: el mensaje llega directamente al equipo de LABMET y te respondemos a tu correo.</p>
+  <form class="contactForm" action="https://formsubmit.co/labmet22@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="Mensaje desde TiempoSalud (página de contacto)">
+    <input type="hidden" name="_template" value="table">
+    <label>Tu nombre
+      <input type="text" name="nombre" required>
+    </label>
+    <label>Tu correo (para poder responderte)
+      <input type="email" name="correo" required>
+    </label>
+    <label>Mensaje
+      <textarea name="mensaje" rows="5" required></textarea>
+    </label>
+    <button type="submit">Enviar mensaje</button>
+  </form>
+  <p>Redes: YouTube (<a href="https://www.youtube.com/@labmet" target="_blank" rel="noopener">LABMET</a>) · TikTok · Facebook · Instagram</p>
 
   <h2>Publicidad y patrocinios</h2>
-  <p>TiempoSalud y las demás apps de LABMET ofrecen espacios de patrocinio (banners y «Presentado por») para marcas que quieran llegar a la audiencia hispana interesada en el tiempo y la salud. Escríbenos a <a href="mailto:jorgehc2490@gmail.com">jorgehc2490@gmail.com</a> y te enviamos el media kit con planes y precios.</p>
+  <p>TiempoSalud y las demás apps de LABMET ofrecen espacios de patrocinio (banners y «Presentado por») para marcas que quieran llegar a la audiencia hispana interesada en el tiempo y la salud. Usa el formulario de arriba y te enviamos el media kit con planes y precios.</p>
 </main>
 </body>
 </html>
