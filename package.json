@@ -1,0 +1,1 @@
+{"dependencies":{"@supabase/supabase-js":"^2.44.0","stripe":"^17.0.0"},"description":"TiempoSalud — pronóstico biometeorológico con membresías (frontend estático + funciones serverless en Vercel + Supabase + Stripe)","engines":{"node":">=18"},"name":"vitalair-public","private":true,"scripts":{"dev":"vercel dev"},"version":"1.0.0"}
