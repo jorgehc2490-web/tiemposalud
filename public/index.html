@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TiempoSalud · El pronóstico del tiempo y tu salud</title>
+<meta name="description" content="TiempoSalud: cómo el tiempo de hoy y los próximos días puede influir en tu salud. Migraña, artritis, alergias, asma, polen y calidad del aire.">
+<link rel="stylesheet" href="styles.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0a1424">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TiempoSalud">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-row">
+      <svg class="pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h4l3-8 4 16 3-8h6"/></svg>
+      <span>TiempoSalud</span>
+    </div>
+    <p class="byline">Creado por el meteorólogo MSc. Jorge Félix Hernández Capote · LABMET</p>
+  </div>
+  <div class="topbar-controls">
+    <div class="seg" role="group" aria-label="Idioma">
+      <button id="langEs" class="seg-btn active" type="button">ES</button>
+      <button id="langEn" class="seg-btn" type="button">EN</button>
+    </div>
+    <div class="seg" role="group" aria-label="Unidades">
+      <button id="unitMetric" class="seg-btn active" type="button" data-i18n="units_metric">Métrico</button>
+      <button id="unitImperial" class="seg-btn" type="button" data-i18n="units_imperial">Imperial</button>
+    </div>
+    <button id="authBtn" class="btn-ghost" type="button" data-i18n="login">Entrar</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- Buscador -->
+  <section class="search-block">
+    <div class="search-box">
+      <input id="cityInput" type="text" autocomplete="off" data-i18n-ph="search_placeholder" placeholder="Buscar ciudad… (ej. Ciudad de México, Cuba)">
+      <div id="searchResults" class="search-results hidden"></div>
+    </div>
+    <div id="cityChips" class="city-chips"></div>
+  </section>
+
+  <!-- Héroe -->
+  <section class="hero">
+    <div class="hero-left">
+      <h1 id="cityName">—</h1>
+      <p id="cityCountry" class="muted">—</p>
+      <p class="plan-badge hidden" id="planBadge"></p>
+    </div>
+    <div class="hero-right">
+      <div class="big-temp"><span id="bigTemp">—</span></div>
+      <div class="hero-day">
+        <span id="dayLabel" class="teal"></span>
+        <span id="dateLabel" class="muted"></span>
+      </div>
+      <p id="heroSummary" class="muted small"></p>
+    </div>
+  </section>
+
+  <!-- Instalar como app (PWA) -->
+  <section id="installBar" class="install-bar hidden">
+    <p><strong>📲 Lleva TiempoSalud en tu teléfono</strong><br><span class="muted small" id="installHint">Instálala como app desde aquí mismo: sin tienda, gratis y ocupa casi nada.</span></p>
+    <button id="installBtn" class="btn-primary" type="button">Instalar la app</button>
+  </section>
+
+  <!-- Publicidad: patrocinador directo o Google AdSense (lo activa ads.js) -->
+  <div class="adslot" data-adslot="sponsor">
+    <div class="adbox">
+      <span class="adico" style="background:#c4302b">▶</span>
+      <span class="admarca">LABMET · YouTube</span>
+      <span class="adsub">@labmet · 94,9 mil suscriptores — huracanes y pronóstico del tiempo</span>
+    </div>
+  </div>
+
+  <!-- Tarjetas de salud -->
+  <section class="cards" id="cards" aria-live="polite"></section>
+
+  <!-- Pronóstico 5 días -->
+  <section class="forecast-block" id="forecastBlock">
+    <div class="forecast-head">
+      <div>
+        <p class="eyebrow" data-i18n="forecast_title">Pronóstico 5 días</p>
+        <h2 id="forecastCity">—</h2>
+      </div>
+      <p class="trusted"><span data-i18n="trusted">Tu meteorólogo de confianza:</span><br><strong class="teal">MsC Jorge Félix Hernández</strong></p>
+    </div>
+    <div class="table-wrap">
+      <table class="forecast-table" id="forecastTable">
+        <thead><tr id="forecastHead"></tr></thead>
+        <tbody id="forecastBody"></tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span><i class="dot bien"></i><span data-i18n="lvl_bien">Bien</span></span>
+      <span><i class="dot cuidado"></i><span data-i18n="lvl_cuidado">Cuidado</span></span>
+      <span><i class="dot alerta"></i><span data-i18n="lvl_alerta">Alerta</span></span>
+    </div>
+    <div id="paywall" class="paywall hidden">
+      <h3 data-i18n="paywall_title">Desbloquea el pronóstico de 5 días</h3>
+      <p data-i18n="paywall_text">Con Premium ves los 5 días, guardas varias ciudades y recibes alertas de salud.</p>
+      <button class="btn-primary" type="button" data-goto-pricing data-i18n="paywall_cta">Ver planes</button>
+    </div>
+  </section>
+
+  <!-- Publicidad: patrocinador directo o Google AdSense (lo activa ads.js) -->
+  <div class="adslot" data-adslot="google">
+    <div class="adbox">
+      <span class="adico" style="background:#c4302b">▶</span>
+      <span class="admarca">LABMET · YouTube</span>
+      <span class="adsub">@labmet · 94,9 mil suscriptores — huracanes y pronóstico del tiempo</span>
+    </div>
+  </div>
+
+  <!-- Planes -->
+  <section class="pricing" id="pricing">
+    <h2 data-i18n="pricing_title">Planes</h2>
+    <div class="plans">
+      <div class="plan-card">
+        <h3 data-i18n="plan_free">Gratis</h3>
+        <p class="price">$0</p>
+        <ul>
+          <li data-i18n="free_1">1 ciudad guardada</li>
+          <li data-i18n="free_2">Pronóstico de hoy</li>
+          <li data-i18n="free_3">Las 6 señales de salud</li>
+        </ul>
+        <button class="btn-ghost" type="button" id="freeBtn" data-i18n="plan_current">Tu plan actual</button>
+      </div>
+      <div class="plan-card highlight">
+        <h3 data-i18n="plan_premium">Premium</h3>
+        <p class="price"><span id="priceMonthly"></span><small data-i18n="per_month">/mes</small></p>
+        <p class="price-alt"><span id="priceAnnual"></span><small data-i18n="per_year">/año</small></p>
+        <ul>
+          <li data-i18n="prem_1">Pronóstico de 5 días</li>
+          <li data-i18n="prem_2">Ciudades ilimitadas</li>
+          <li data-i18n="prem_3">Alertas de salud</li>
+          <li data-i18n="prem_4">Sin límites</li>
+        </ul>
+        <div class="plan-actions">
+          <button class="btn-primary" type="button" id="buyMonthly" data-i18n="subscribe_monthly">Suscribirme mensual</button>
+          <button class="btn-ghost" type="button" id="buyAnnual" data-i18n="subscribe_annual">Suscribirme anual</button>
+        </div>
+      </div>
+    </div>
+    <p class="muted small" data-i18n="pricing_note">Pago seguro con Stripe. Cancela cuando quieras.</p>
+  </section>
+
+  <!-- Metodología -->
+  <section class="method">
+    <button class="method-toggle" id="methodToggle" type="button" aria-expanded="false">
+      <span data-i18n="method_title">Metodología y fuentes</span>
+      <span class="chev">▾</span>
+    </button>
+    <div class="method-body hidden" id="methodBody"></div>
+  </section>
+</main>
+
+<footer>
+  <p class="disclaimer" data-i18n="disclaimer">TiempoSalud es una herramienta informativa: muestra cómo las condiciones meteorológicas se asocian en la literatura científica con ciertas dolencias. No es un diagnóstico médico ni sustituye el consejo de un profesional de la salud. Consulta a tu médico.</p>
+  <p class="muted small"><span data-i18n="data_by">Datos meteorológicos y de calidad del aire por</span> <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo.com</a> (CC-BY 4.0) · <span data-i18n="trusted">Tu meteorólogo de confianza:</span> <strong>MsC Jorge Félix Hernández</strong></p>
+  <p class="legal-links"><a href="privacidad.html">Política de Privacidad</a> · <a href="contacto.html">Acerca de / Contacto</a></p>
+</footer>
+
+<!-- Modal de acceso -->
+<div id="authModal" class="modal hidden" role="dialog" aria-modal="true">
+  <div class="modal-card">
+    <h3 data-i18n="auth_title">Entrar a TiempoSalud</h3>
+    <p class="muted small" data-i18n="auth_text">Escribe tu correo y te enviaremos un enlace mágico para entrar, sin contraseña.</p>
+    <input id="authEmail" type="email" placeholder="tu@correo.com">
+    <button class="btn-primary" type="button" id="authSend" data-i18n="auth_send">Enviar enlace</button>
+    <p id="authMsg" class="muted small"></p>
+    <button class="btn-ghost" type="button" id="authClose" data-i18n="close">Cerrar</button>
+  </div>
+</div>
+
+<script type="module" src="app.js"></script>
+<script>
+  /* Publicidad: conviven patrocinador directo y Google AdSense.
+     El hueco "sponsor" (franja superior) es SIEMPRE del patrocinador directo.
+     El hueco "google" muestra patrocinador mientras no haya ID de editor;
+     al aprobarse AdSense, poner aquí el ID (ca-pub-...) y el del bloque. */
+  window.TS_ADS = { client: "", slotMid: "" };
+</script>
+<script src="ads.js" defer></script>
+<script src="instalar.js" defer></script>
+</body>
+</html>
